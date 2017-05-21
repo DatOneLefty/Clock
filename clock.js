@@ -86,6 +86,30 @@ function draw(canvas, angle, type){ // from https://jsfiddle.net/Lbo0dzfL/17/
         context.stroke();
         startingAngle = startingAngle + interval;
     }
+
+    if (type == 1) {
+      // hours
+      var radius = 100;
+      context.strokeStyle = 'white';
+    }
+    if (type == 2) {
+      // minutes
+      var radius = 225;
+      context.strokeStyle = 'white';
+    }
+
+    if (type == 3) {
+    // minutes
+    var radius = 225;
+    context.strokeStyle = 'red';
+    }
+
+if (angle == 360 || angle == 0) {
+context.beginPath();
+context.moveTo(centerX,centerY);
+context.lineTo(radius, centerY);
+context.stroke();
+}
 }
 
 function degreesToRadians(degrees) {
