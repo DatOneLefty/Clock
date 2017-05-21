@@ -1,3 +1,4 @@
+var centerX, centerY, canvas, c;
 function init() {
   c = document.getElementById('clock'),
   canvas = c.getContext('2d');
@@ -9,8 +10,8 @@ function init() {
   canvas.fill();
 
   // http://www.html5canvastutorials.com/tutorials/html5-canvas-circles/
-  var centerX = c.width / 2;
-  var centerY = c.height / 2;
+  centerX = c.width / 2;
+  centerY = c.height / 2;
   var radius = 250;
 
 
@@ -34,13 +35,40 @@ var h = d.getHours();
   c = document.getElementById('clock'),
   canvas = c.getContext('2d');
   canvas.fillStyle = "white";
-  console.log("h: " + h * 30);
-  console.log("m: " + m * 6);
-  console.log("s: " + s * 6);
 
-  draw(c, 360 - (h * 30) + 90, 1);
-  draw(c, 360 - (m * 6) + 90, 2);
-  draw(c, 360 - (s * 6) + 90, 3);
+  h = 360 - (h * 30) + 90;
+  m = 360 - (m * 6) + 90;
+  s = 360 - (s * 6) + 90;
+  console.log("h: " + h);
+  console.log("m: " + m);
+  console.log("s: " + s);
+
+  draw(c, h, 1);
+  draw(c, s, 3);
+  draw(c, m, 2);
+
+  if (s == 0 || s == 360) {
+    canvas.strokeStyle = 'red';
+    canvas.beginPath();
+    canvas.moveTo(centerX,centerY);
+    canvas.lineTo(centerX+225, centerY);
+    canvas.stroke();
+  }
+
+  if (m == 0 || m == 360) {
+    canvas.strokeStyle = 'white';
+    canvas.beginPath();
+    canvas.moveTo(centerX,centerY);
+    canvas.lineTo(centerX+225, centerY);
+    canvas.stroke();
+  }
+  if (h == 0 || h == 360) {
+    canvas.strokeStyle = 'white';
+    canvas.beginPath();
+    canvas.moveTo(centerX,centerY);
+    canvas.lineTo(centerX+100, centerY);
+    canvas.stroke();
+  }
 
 
 }
@@ -115,7 +143,7 @@ context.stroke();
 function degreesToRadians(degrees) {
     return (degrees * Math.PI)/180;
 }
-// end from external 
+// end from external
 
 function run() {
   init();
@@ -123,4 +151,19 @@ function run() {
 }
 run();
 
-setInterval(run, 500);
+
+var x = 0;
+setInterval(function() {
+  x = x + 0.05;
+  /* this will be a feature that will be toggleable
+  canvas.beginPath();
+  canvas.arc(centerX,centerY,250,-0.5 * Math.PI,x * Math.PI, false);
+  canvas.lineWidth = 3;
+canvas.strokeStyle = 'black';
+canvas.stroke();
+*/
+if (x >= 1.5) {
+  x = -0.5;
+  run();
+}
+},25);
