@@ -107,7 +107,7 @@ function draw(canvas, angle, type){ // from https://jsfiddle.net/Lbo0dzfL/17/
 if (angle == 360 || angle == 0) {
 context.beginPath();
 context.moveTo(centerX,centerY);
-context.lineTo(radius, centerY);
+context.lineTo(-radius, centerY);
 context.stroke();
 }
 }
